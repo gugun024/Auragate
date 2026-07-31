@@ -23,7 +23,7 @@ const banner = `
  ██║  ██║╚██████╔╝██║  ██║██║  ██║╚██████╔╝██║  ██║   ██║   ███████╗
  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
- ⚡ AuraGate v0.1.4 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
+ ⚡ AuraGate v0.1.6 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
 
  > Server Endpoint : http://localhost:${port}/v1
  > Web Dashboard   : http://localhost:${port}
@@ -38,7 +38,6 @@ console.log('\x1b[36m%s\x1b[0m', banner);
 
 const projectRoot = path.join(__dirname, '..');
 const dbPath = path.join(projectRoot, 'prisma', 'dev.db');
-const nextBuildPath = path.join(projectRoot, '.next');
 const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 
 // Ensure Prisma Client is generated
@@ -59,23 +58,12 @@ if (!fs.existsSync(dbPath)) {
   }
 }
 
-// Check if production build exists, build if missing
-let serverScript = 'start';
-if (!fs.existsSync(nextBuildPath)) {
-  console.log('\x1b[33m%s\x1b[0m', '⚙️  Menyiapkan production build Next.js...');
-  try {
-    execSync(`${npxCmd} next build`, { cwd: projectRoot, stdio: 'inherit' });
-  } catch (buildErr) {
-    serverScript = 'dev';
-  }
-}
-
-// Run Next.js production server
-const child = spawn(npxCmd, ['next', serverScript, '-p', String(port)], {
+// Run Next.js dev server (with typescript pre-installed in dependencies)
+const child = spawn(npxCmd, ['next', 'dev', '-p', String(port)], {
   cwd: projectRoot,
   stdio: 'inherit',
   shell: true,
-  env: { ...process.env, PORT: String(port), NODE_ENV: 'production' },
+  env: { ...process.env, PORT: String(port) },
 });
 
 child.on('error', (err) => {

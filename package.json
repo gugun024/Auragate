@@ -1,6 +1,6 @@
 {
   "name": "auragate",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Self-hosted AI Gateway & Smart API Key Rotator for OpenCode, Cursor, and LLMs with RTK Token Saver",
   "bin": {
     "auragate": "bin/auragate.js"
@@ -10,8 +10,6 @@
     "src",
     "prisma",
     "public",
-    ".next",
-    "node_modules/.prisma",
     "README.md",
     "next.config.ts",
     "tsconfig.json",
@@ -22,8 +20,7 @@
     "dev": "next dev -p 20128",
     "build": "prisma generate && next build",
     "start": "next start -p 20128",
-    "lint": "eslint",
-    "prepublishOnly": "npm run build"
+    "lint": "eslint"
   },
   "keywords": [
     "ai-gateway",
@@ -43,23 +40,23 @@
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.9.1",
     "@prisma/client": "^7.9.1",
-    "better-sqlite3": "^13.0.2",
-    "lucide-react": "^1.27.0",
-    "next": "16.2.12",
-    "prisma": "^7.9.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
-  "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.12",
+    "better-sqlite3": "^13.0.2",
+    "lucide-react": "^1.27.0",
+    "next": "16.2.12",
+    "prisma": "^7.9.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "tailwindcss": "^4",
     "tsx": "^4.23.1",
     "typescript": "^5"
+  },
+  "devDependencies": {
+    "eslint": "^9",
+    "eslint-config-next": "16.2.12"
   }
 }
