@@ -23,7 +23,7 @@ const banner = `
  ██║  ██║╚██████╔╝██║  ██║██║  ██║╚██████╔╝██║  ██║   ██║   ███████╗
  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
- ⚡ AuraGate v0.1.9 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
+ ⚡ AuraGate v0.2.0 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
 
  > Server Endpoint : http://localhost:${port}/v1
  > Web Dashboard   : http://localhost:${port}

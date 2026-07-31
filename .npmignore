@@ -1,0 +1,28 @@
+# Exclude unnecessary .next build artifacts from npm package
+# Only .next/server, .next/static, .next/types, and root files are needed for `next start`
+.next/dev
+.next/cache
+.next/trace
+.next/trace-build
+.next/diagnostics
+
+# Source maps (optional, saves space)
+.next/**/*.js.map
+
+# Dev dependencies
+node_modules
+
+# Git
+.git
+.gitignore
+
+# Prisma dev DB (will be created fresh on first run)
+# prisma/dev.db
+
+# IDE
+.vscode
+.idea
+
+# Logs
+*.log
+npm-debug.log*
