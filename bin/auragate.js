@@ -23,7 +23,7 @@ const banner = `
  ██║  ██║╚██████╔╝██║  ██║██║  ██║╚██████╔╝██║  ██║   ██║   ███████╗
  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
- ⚡ AuraGate v0.1.0 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
+ ⚡ AuraGate v0.1.2 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
 
  > Server Endpoint : http://localhost:${port}/v1
  > Web Dashboard   : http://localhost:${port}
@@ -51,12 +51,13 @@ if (!fs.existsSync(dbPath)) {
   }
 }
 
-// Run Next.js server
+// Run Next.js server with shell: true for cross-platform support
 const nextCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 
 const child = spawn(nextCmd, ['next', 'dev', '-p', String(port)], {
   cwd: projectRoot,
   stdio: 'inherit',
+  shell: true,
   env: { ...process.env, PORT: String(port) },
 });
 
