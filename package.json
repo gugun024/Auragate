@@ -5,6 +5,17 @@
   "bin": {
     "auragate": "./bin/auragate.js"
   },
+  "files": [
+    "bin",
+    "src",
+    "prisma",
+    "public",
+    "README.md",
+    "next.config.ts",
+    "tsconfig.json",
+    "postcss.config.mjs",
+    "eslint.config.mjs"
+  ],
   "scripts": {
     "dev": "next dev -p 20128",
     "build": "next build",
