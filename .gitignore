@@ -29,6 +29,7 @@ prisma/*.db-journal
 # misc
 .DS_Store
 *.pem
+.npmrc
 
 # debug
 npm-debug.log*
