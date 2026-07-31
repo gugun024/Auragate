@@ -58,8 +58,19 @@ if (!fs.existsSync(dbPath)) {
   }
 }
 
-// Run Next.js dev server (with typescript pre-installed in dependencies)
-const child = spawn(npxCmd, ['next', 'dev', '-p', String(port)], {
+// Build production assets if not already built
+if (!fs.existsSync(path.join(projectRoot, '.next'))) {
+  console.log('\\x1b[33m%s\\x1b[0m', '⚙️  Building production assets...');
+  try {
+    execSync(`${npxCmd} npm run build`, { cwd: projectRoot, stdio: 'inherit' });
+    console.log('\\x1b[32m%s\\x1b[0m', '✓ Build completed!');
+  } catch (buildErr) {
+    console.error('❌ Build failed:', buildErr.message);
+    process.exit(1);
+  }
+}
+// Run Next.js production server
+const child = spawn(npxCmd, ['next', 'start', '-p', String(port)], {
   cwd: projectRoot,
   stdio: 'inherit',
   shell: true,
