@@ -23,7 +23,7 @@ const banner = `
  ██║  ██║╚██████╔╝██║  ██║██║  ██║╚██████╔╝██║  ██║   ██║   ███████╗
  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
- ⚡ AuraGate v0.1.6 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
+ ⚡ AuraGate v0.1.8 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
 
  > Server Endpoint : http://localhost:${port}/v1
  > Web Dashboard   : http://localhost:${port}
@@ -58,8 +58,12 @@ if (!fs.existsSync(dbPath)) {
   }
 }
 
-// Run Next.js dev server (works in global install)
-const child = spawn(npxCmd, ['next', 'dev', '-p', String(port)], {
+// Run Next.js production server (postinstall builds the app)
+if (!fs.existsSync(path.join(projectRoot, '.next'))) {
+  console.log('🔧 Building project for production...');
+  execSync(`${npxCmd} npm run build`, { cwd: projectRoot, stdio: 'inherit' });
+}
+const child = spawn(npxCmd, ['next', 'start', '-p', String(port)], {
   cwd: projectRoot,
   stdio: 'inherit',
   shell: true,
