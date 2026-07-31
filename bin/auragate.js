@@ -23,7 +23,7 @@ const banner = `
  ██║  ██║╚██████╔╝██║  ██║██║  ██║╚██████╔╝██║  ██║   ██║   ███████╗
  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
- ⚡ AuraGate v0.1.3 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
+ ⚡ AuraGate v0.1.4 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
 
  > Server Endpoint : http://localhost:${port}/v1
  > Web Dashboard   : http://localhost:${port}
@@ -40,6 +40,13 @@ const projectRoot = path.join(__dirname, '..');
 const dbPath = path.join(projectRoot, 'prisma', 'dev.db');
 const nextBuildPath = path.join(projectRoot, '.next');
 const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+
+// Ensure Prisma Client is generated
+try {
+  execSync(`${npxCmd} prisma generate`, { cwd: projectRoot, stdio: 'ignore' });
+} catch (pErr) {
+  // Silent catch
+}
 
 // Ensure SQLite database schema exists on first run
 if (!fs.existsSync(dbPath)) {
