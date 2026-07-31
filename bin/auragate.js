@@ -23,7 +23,7 @@ const banner = `
  ██║  ██║╚██████╔╝██║  ██║██║  ██║╚██████╔╝██║  ██║   ██║   ███████╗
  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
- ⚡ AuraGate v0.1.2 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
+ ⚡ AuraGate v0.1.3 — Smart AI Gateway & API Key Rotator (OpenCode & LLMs)
 
  > Server Endpoint : http://localhost:${port}/v1
  > Web Dashboard   : http://localhost:${port}
@@ -38,12 +38,13 @@ console.log('\x1b[36m%s\x1b[0m', banner);
 
 const projectRoot = path.join(__dirname, '..');
 const dbPath = path.join(projectRoot, 'prisma', 'dev.db');
+const nextBuildPath = path.join(projectRoot, '.next');
+const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 
 // Ensure SQLite database schema exists on first run
 if (!fs.existsSync(dbPath)) {
-  console.log('\x1b[33m%s\x1b[0m', '⚙️  Menginisialisasi SQLite Database Schema untuk pertama kali...');
+  console.log('\x1b[33m%s\x1b[0m', '⚙️  Menginisialisasi SQLite Database Schema...');
   try {
-    const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
     execSync(`${npxCmd} prisma db push`, { cwd: projectRoot, stdio: 'ignore' });
     console.log('\x1b[32m%s\x1b[0m', '✓ Database SQLite berhasil diinisialisasi!\n');
   } catch (dbErr) {
@@ -51,14 +52,23 @@ if (!fs.existsSync(dbPath)) {
   }
 }
 
-// Run Next.js server with shell: true for cross-platform support
-const nextCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+// Check if production build exists, build if missing
+let serverScript = 'start';
+if (!fs.existsSync(nextBuildPath)) {
+  console.log('\x1b[33m%s\x1b[0m', '⚙️  Menyiapkan production build Next.js...');
+  try {
+    execSync(`${npxCmd} next build`, { cwd: projectRoot, stdio: 'inherit' });
+  } catch (buildErr) {
+    serverScript = 'dev';
+  }
+}
 
-const child = spawn(nextCmd, ['next', 'dev', '-p', String(port)], {
+// Run Next.js production server
+const child = spawn(npxCmd, ['next', serverScript, '-p', String(port)], {
   cwd: projectRoot,
   stdio: 'inherit',
   shell: true,
-  env: { ...process.env, PORT: String(port) },
+  env: { ...process.env, PORT: String(port), NODE_ENV: 'production' },
 });
 
 child.on('error', (err) => {
