@@ -20,8 +20,7 @@
     "dev": "next dev -p 20128",
     "build": "prisma generate && next build",
     "start": "next start -p 20128",
-    "lint": "eslint",
-    "postinstall": "npm run build"
+    "lint": "eslint"
   },
   "keywords": [
     "ai-gateway",
