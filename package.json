@@ -1,6 +1,6 @@
 {
   "name": "auragate",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Self-hosted AI Gateway & Smart API Key Rotator for OpenCode, Cursor, and LLMs with RTK Token Saver",
   "bin": {
     "auragate": "bin/auragate.js"
@@ -10,6 +10,7 @@
     "src",
     "prisma",
     "public",
+    ".next",
     "README.md",
     "next.config.ts",
     "tsconfig.json",
@@ -18,10 +19,9 @@
   ],
   "scripts": {
     "dev": "next dev -p 20128",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && next build --webpack",
     "start": "next start -p 20128",
-    "lint": "eslint",
-    "postinstall": "npm run build"
+    "lint": "eslint"
   },
   "keywords": [
     "ai-gateway",
