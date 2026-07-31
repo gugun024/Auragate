@@ -105,11 +105,26 @@ flowchart LR
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- **Node.js**: v18.0.0 or higher
-- **npm** or **pnpm**
+### 📦 Option 1: Global NPM Installation (Recommended)
 
-### 1. Installation
+Install AuraGate globally and launch it instantly from any terminal window:
+
+```bash
+# Install AuraGate globally from NPM
+npm install -g auragate
+
+# Launch AuraGate Server & Web Dashboard
+auragate
+
+# Or launch on a custom port
+auragate -p 8080
+```
+
+Open **[http://localhost:20128](http://localhost:20128)** in your browser to access the Web Admin Dashboard.
+
+---
+
+### 🛠️ Option 2: Local Source Installation
 
 ```bash
 # Clone the repository
@@ -121,31 +136,9 @@ npm install
 
 # Initialize SQLite database schema
 npx prisma db push
-```
 
-### 2. Launch Development Server
-
-```bash
+# Launch Development Server
 npm run dev
-```
-
-Open **[http://localhost:20128](http://localhost:20128)** in your browser to access the Web Admin Dashboard.
-
----
-
-## 💻 Global CLI Launcher Setup
-
-Link AuraGate globally to run it from any terminal window:
-
-```bash
-# Link binary executable globally
-npm link
-
-# Run AuraGate from anywhere
-auragate
-
-# Run on a custom port
-auragate -p 8080
 ```
 
 ---

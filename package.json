@@ -1,6 +1,6 @@
 {
   "name": "auragate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Self-hosted AI Gateway & Smart API Key Rotator for OpenCode, Cursor, and LLMs with RTK Token Saver",
   "bin": {
     "auragate": "bin/auragate.js"
