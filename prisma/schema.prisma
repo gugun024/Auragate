@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model ProviderKey {
+  id            String    @id @default(cuid())
+  name          String
+  provider      String    // e.g. "openai", "groq", "deepseek", "gemini", "openrouter", "anthropic", "mistral", "custom"
+  apiKey        String
+  baseUrl       String?   // Custom base URL if using custom provider
+  models        String?   // JSON string of imported model IDs: ["model-1", "model-2"]
+  priority      Int       @default(1)
+  status        String    @default("ACTIVE") // "ACTIVE", "COOLDOWN", "DISABLED"
+  errorCount    Int       @default(0)
+  successCount  Int       @default(0)
+  cooldownUntil DateTime?
+  lastUsedAt    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model ClientKey {
+  id            String    @id @default(cuid())
+  name          String
+  token         String    @unique // Format: ar-sk-xxxxxx
+  status        String    @default("ACTIVE") // "ACTIVE", "DISABLED"
+  totalRequests Int       @default(0)
+  lastUsedAt    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model RequestLog {
+  id           String   @id @default(cuid())
+  provider     String
+  model        String
+  keyId        String?
+  keyName      String?
+  statusHttp   Int
+  success      Boolean
+  retryCount   Int      @default(0)
+  latencyMs    Int
+  errorMessage String?
+  createdAt    DateTime @default(now())
+}
+
+model SystemSetting {
+  id                 String   @id @default("global")
+  customSystemPrompt String?  @default("")
+  enableSystemPrompt Boolean  @default(false)
+  updatedAt          DateTime @updatedAt
+}
